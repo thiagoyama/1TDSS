@@ -26,7 +26,6 @@ public class ExemploConversaoTipos {
 		
 		System.out.println("Int: " + valorInt);
 		
-		
 	}
 
 }
