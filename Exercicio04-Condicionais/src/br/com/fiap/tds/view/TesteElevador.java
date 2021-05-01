@@ -52,7 +52,7 @@ public class TesteElevador {
 				int qtd = Integer.parseInt(JOptionPane.showInputDialog("Quantas pessoas vão entrar?"));
 				//Chama o método para entrar e exibe a quantidade de pessoas no elevador
 				JOptionPane.showMessageDialog(null, "Pessoas no elevador: " + elevador.entra(qtd));
-				break;
+				break; 
 			}
 			case 4 : {
 				//Ler a quantidade de pessoas que querem sair do elevador

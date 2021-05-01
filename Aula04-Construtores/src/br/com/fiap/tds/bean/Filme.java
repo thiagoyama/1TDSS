@@ -9,7 +9,6 @@ public class Filme {
 	
 	private String sinopse;
 	
-	
 	public Filme(String titulo, int duracao) {
 		this(titulo);
 		this.duracao = duracao;
