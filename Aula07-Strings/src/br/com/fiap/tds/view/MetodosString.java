@@ -72,6 +72,7 @@ public class MetodosString {
 		//Exibir as 3 primeiras letras do nome 
 		//Criar uma nova string a partir de parte de outra string
 		String parteNome = nome.substring(0, 3);
+		
 		System.out.println("As 3 primeiras letras do nome: " + parteNome);
 		
 		//Exibir as 3 últimas letras do nome
@@ -107,6 +108,7 @@ public class MetodosString {
 		//Exibir a quantidade de caracteres do nome sem contar os espaços
 		//Tira os espaços em branco do nome
 		String nomeSemEspaco = nome.replace(" ", "");
+		
 		System.out.println("A quantidade de caracteres sem espaço é: " + nomeSemEspaco.length());
 		System.out.println(nomeSemEspaco);
 		
