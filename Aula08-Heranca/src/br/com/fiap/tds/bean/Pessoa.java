@@ -8,7 +8,9 @@ public class Pessoa {
 	private String cpf;
 	
 	//Construtores
-	public Pessoa() {}
+	public Pessoa() {
+		super();
+	}
 	
 	public Pessoa(String nome, String cpf) {
 		this.nome = nome;
