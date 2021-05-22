@@ -33,6 +33,21 @@ public class Produto {
 		}
 		return valor;
 	}
+	
+	//Sobrescrever o método toString() para determinar o que será exibido no print do objeto
+	@Override
+	public String toString() {
+		return "Nome: " + nome + ", Quantidade: " + quantidade + ", Valor: " + valor;
+	}
+	
+	//Construtores -> CTRL + 3 gcuf
+	public Produto() {}
+	
+	public Produto(String nome, int quantidade, double valor) {
+		this.nome = nome;
+		this.quantidade = quantidade;
+		this.valor = valor;
+	}
 
 	//Getters e Setters
 	public String getNome() {

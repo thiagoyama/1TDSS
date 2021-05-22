@@ -32,7 +32,22 @@ public class ProdutoPerecivel extends Produto {
 		*/
 		return cupom.equals("LEVA40") ? valor * 0.6 : super.calcularDesconto(cupom);
 	}
+	
+	//Sobrescrever o método toString()..
+	@Override
+	public String toString() {
+		return super.toString() + ", Data de validade: " + dataValidade;
+	}
 
+	//Construtores CTRL + 3 gcuf
+	public ProdutoPerecivel() {}
+	
+	public ProdutoPerecivel(String nome, int quantidade, double valor, String dataValidade) {
+		super(nome, quantidade, valor);
+		this.dataValidade = dataValidade;
+	}
+
+	//Getters e Setters
 	public String getDataValidade() {
 		return dataValidade;
 	}
