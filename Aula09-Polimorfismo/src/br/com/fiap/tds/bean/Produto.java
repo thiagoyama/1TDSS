@@ -11,7 +11,6 @@ public class Produto {
 	
 	//Métodos com sobrecarga (Overload):
 	//Métodos com mesmo nome e parâmetros diferentes
-	
 	//Calcula o valor com desconto padrão
 	public double calcularDesconto() {
 		return valor * 0.95;
