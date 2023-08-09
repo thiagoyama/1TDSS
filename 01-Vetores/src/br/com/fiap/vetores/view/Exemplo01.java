@@ -3,7 +3,7 @@ package br.com.fiap.vetores.view;
 public class Exemplo01 {
 
 	public static void main(String[] args) {
-		//Definir um vetor de nomes de carro com 5 posições
+		
 		String[] nomes = new String[5];
 		//Definir o nome de 5 carros
 		nomes[0] = "Corolla";
@@ -26,7 +26,7 @@ public class Exemplo01 {
 		float[] notas = {10, 8, 7};
 		System.out.println(notas.length); //3
 		
-		//Exibir a média de cp
+		//Exibir a mï¿½dia de cp
 		float media = 0;
 		for (int i = 0; i < notas.length; i++) {
 			media += notas[i]; //somando todas as notas
