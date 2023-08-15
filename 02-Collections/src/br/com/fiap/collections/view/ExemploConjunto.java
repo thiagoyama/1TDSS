@@ -16,7 +16,6 @@ public class ExemploConjunto {
 		conjunto.add("Vermelho");
 		
 		//Adicionar um valor repetido
-
 		conjunto.add("Roxo"); //foi ignorado
 		
 		//Exibir a quantidade de elementos no conjunto
