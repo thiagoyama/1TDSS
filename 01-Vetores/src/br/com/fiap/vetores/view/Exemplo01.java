@@ -17,6 +17,7 @@ public class Exemplo01 {
 			System.out.println(nomes[i]);
 		}
 		
+		
 		//Foreach (for ("Tipo de dado" variavel : vetor)
 		for (String item : nomes) {
 			System.out.println(item);
