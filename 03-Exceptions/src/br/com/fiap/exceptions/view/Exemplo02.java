@@ -2,6 +2,8 @@ package br.com.fiap.exceptions.view;
 
 import javax.swing.JOptionPane;
 
+import br.com.fiap.exceptions.exception.ImpostoInvalidoException;
+import br.com.fiap.exceptions.exception.QuantidadeInvalidaException;
 import br.com.fiap.exceptions.model.Produto;
 
 public class Exemplo02 {
@@ -27,11 +29,11 @@ public class Exemplo02 {
 			double valorTotal = feijao.calcularValorTotal(qtd);
 			System.out.println(valorTotal);
 			
-		} catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			System.err.println("Imposto deve ser um número");
-		} catch (RuntimeException e) {
+		} catch (ImpostoInvalidoException e) {
 			System.err.println(e.getMessage());
-		} catch (Exception e) {
+		} catch (QuantidadeInvalidaException e) {
 			System.err.println(e.getMessage());
 		}
 		

@@ -1,5 +1,8 @@
 package br.com.fiap.exceptions.model;
 
+import br.com.fiap.exceptions.exception.ImpostoInvalidoException;
+import br.com.fiap.exceptions.exception.QuantidadeInvalidaException;
+
 public class Produto {
 
 	private String nome;
@@ -15,15 +18,15 @@ public class Produto {
 	public double calcularImposto(double imposto) {
 		//Se o imposto for menor do que 0, lançar uma RuntimeException
 		if (imposto < 0)
-			throw new RuntimeException("O imposto deve ser maior do que 0");
+			throw new ImpostoInvalidoException("O imposto deve ser maior do que 0");
 		return preco * (imposto / 100);
 	}
 	
 	//Retornar o valor total dos produtos de acordo com a qtd
-	public double calcularValorTotal(int quantidade) throws Exception {
+	public double calcularValorTotal(int quantidade) throws QuantidadeInvalidaException {
 		//Se a quatidade for menor ou igual a zero, lançar uma Exception
 		if (quantidade <= 0) 
-			throw new Exception("A quantidade deve ser maior do que zero");
+			throw new QuantidadeInvalidaException("A quantidade deve ser maior do que zero");
 		return preco * quantidade;
 	}
 	
