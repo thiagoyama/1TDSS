@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
+
 public class ExemploEscrita {
 
 	public static void main(String[] args) {
@@ -16,8 +18,12 @@ public class ExemploEscrita {
 			//Escrever no arquivo
 			//arquivo.println("Churros de Doce de Leite, R$5,00");
 			//arquivo.println("Churros de Chocolate, R$4,00");
-			
-			//Pedir para o usuario o texto que será gravado no arquivo
+			int op;
+			do {
+				//Pedir para o usuario o texto que será gravado no arquivo
+				arquivo.println(JOptionPane.showInputDialog("Digite o que será gravado no arquivo"));
+				op = Integer.parseInt(JOptionPane.showInputDialog("1 - Adicionar novamente, 2 - Finalizar"));
+			} while(op == 1);
 			
 			//Fechar os recursos abertos
 			arquivo.close();

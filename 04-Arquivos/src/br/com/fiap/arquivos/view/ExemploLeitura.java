@@ -15,11 +15,12 @@ public class ExemploLeitura {
 			
 			//Variavel para receber cada linha do arquivo
 			String linha;
+			StringBuffer texto = new StringBuffer();
 			//Laço para ler todas as linhas do arquivo
 			while ((linha = arquivo.readLine()) != null) {
-				System.out.println(linha);
+				texto.append(linha).append("\n");
 			}
-			
+			System.out.println(texto);
 			//Fechar os recursos abertos
 			arquivo.close();
 			inputStream.close();
