@@ -28,9 +28,14 @@ public class ExemploPesquisa {
 				//Recuperar os valores dos campos de cada registro
 				int codigo = result.getInt("cd_produto");
 				String nome = result.getString("nm_produto");
+				int estoque = result.getInt("nr_estoque");
+				double venda = result.getDouble("vl_venda");
+				double compra = result.getDouble("vl_compra");
 				
 				//Imprimir os valores
-				System.out.println(codigo + " " + nome);
+				System.out.println(codigo + " " + nome + 
+						" estoque: " + estoque + " Vl Compra: " + compra 
+						+ " Vl Venda: " + venda);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
