@@ -1,7 +1,5 @@
 package br.com.fiap.banco.view;
 
-import java.sql.SQLException;
-
 import br.com.fiap.banco.dao.ProdutoDao;
 import br.com.fiap.banco.exception.IdNotFoundException;
 import br.com.fiap.banco.model.Produto;
