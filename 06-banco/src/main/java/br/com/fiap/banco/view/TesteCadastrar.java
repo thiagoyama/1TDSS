@@ -11,23 +11,27 @@ import br.com.fiap.banco.model.Produto;
 public class TesteCadastrar {
 
 	public static void main(String[] args) {
-		
-		//Instanciar um produto (a ideia √© que o usu√°rio informe os dados)
-		Produto produto = new Produto(5, "Caminhao", 1, 200000, 300000);
-		
-		Connection conn = ConnectionFactory.getConnection();
-		//Instanciar o objeto que √© capaz de realizar as a√ß√µes no banco de dados
-		ProdutoDao dao = new ProdutoDao(conn);
 
-		//Gravar no banco
+		// Instanciar um produto (a ideia eh que o usu·rio informe os dados)
+		Produto produto = new Produto(8, "Fone de ouvido", 100, 20, 40);
+
+		Connection conn = null;
 		try {
+			conn = ConnectionFactory.getConnection();
+			// Instanciar o objeto que È capaz de realizar as aÁoes no banco de dados
+			ProdutoDao dao = new ProdutoDao(conn);
+			// Gravar no banco
 			dao.cadastrar(produto);
 			System.out.println("Gravado!");
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		
 	}
 }
