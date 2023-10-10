@@ -9,6 +9,7 @@ import br.com.fiap.banco.exception.IdNotFoundException;
 import br.com.fiap.banco.factory.ConnectionFactory;
 import br.com.fiap.banco.model.Produto;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -18,6 +19,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.core.UriBuilder;
 import jakarta.ws.rs.core.UriInfo;
 
@@ -42,8 +44,13 @@ public class ProdutoResource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Produto busca(@PathParam("id") int codigo) throws ClassNotFoundException, SQLException, IdNotFoundException {
-		return dao.pesquisar(codigo);
+	public Response busca(@PathParam("id") int codigo) throws ClassNotFoundException, SQLException {
+		try {
+			return Response.ok(dao.pesquisar(codigo)).build();
+		} catch (IdNotFoundException e) {
+			//Retornar 404 caso o produto não exista
+			return Response.status(Status.NOT_FOUND).build();
+		}
 	}
 	
 	//POST http://localhost:8080/07-WebApi/api/produto/ (Cadastrar um produto)
@@ -63,12 +70,28 @@ public class ProdutoResource {
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(Produto produto, @PathParam("id") int codigo) throws ClassNotFoundException, SQLException, IdNotFoundException {
-		produto.setCodigo(codigo);
-		dao.atualizar(produto);
-		return Response.ok().build();
+	public Response atualizar(Produto produto, @PathParam("id") int codigo) throws ClassNotFoundException, SQLException {
+		try {
+			produto.setCodigo(codigo);
+			dao.atualizar(produto);
+			return Response.ok().build();
+		} catch (IdNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
 	}
-
+	
+	//DELETE http://localhost:8080/07-WebApi/api/produto/1 (Apagar um produto)
+	@DELETE
+	@Path("/{id}")
+	public Response remover(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+		try {
+			dao.remover(id);
+			return Response.noContent().build();
+		} catch (IdNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
 }
 
 
