@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.banco.exception.IdNotFoundException;
+import br.com.fiap.banco.model.Categoria;
 import br.com.fiap.banco.model.Produto;
 
-//Realiza as ações de CRUD (Create, Read, Update, Delete) no banco de dados
+//Realiza as aï¿½ï¿½es de CRUD (Create, Read, Update, Delete) no banco de dados
 public class ProdutoDao {
 	
 	private Connection conn;
@@ -23,7 +24,8 @@ public class ProdutoDao {
 
 		// Criar o objeto com o comando SQL configuravel
 		PreparedStatement stm = conn.prepareStatement("INSERT INTO" + " T_PRODUTO (cd_produto, nm_produto, nr_estoque,"
-				+ " vl_venda, vl_compra) values (?, ?, ?, ?, ?)");
+				+ " vl_venda, vl_compra, cd_categoria) "
+				+ "values (?, ?, ?, ?, ?, ?)");
 
 		// Setar os valores no comando SQL
 		stm.setInt(1, produto.getCodigo());
@@ -31,6 +33,7 @@ public class ProdutoDao {
 		stm.setInt(3, produto.getEstoque());
 		stm.setDouble(4, produto.getValorVenda());
 		stm.setDouble(5, produto.getValorCompra());
+		stm.setInt(6, produto.getCategoria().getCodigo());
 
 		// Executar o comando SQL
 		stm.executeUpdate();
@@ -86,8 +89,20 @@ public class ProdutoDao {
 		int estoque = result.getInt("nr_estoque");
 		double venda = result.getDouble("vl_venda");
 		double compra = result.getDouble("vl_compra");
+		
+		//Recuperar a fk da categoria
+		int codigoCategoria = result.getInt("cd_categoria");
+		
 		// Instanciar o produto com os valores
 		Produto produto = new Produto(codigo, nome, estoque, venda, compra);
+		
+		//Instanciar uma categoria e setar o cÃ³digo da categoria
+		//Se existir a FK
+		if (codigoCategoria != 0) {
+			Categoria categoria = new Categoria();
+			categoria.setCodigo(codigoCategoria);
+			produto.setCategoria(categoria);
+		}
 		return produto;
 	}
 

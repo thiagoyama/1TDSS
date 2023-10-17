@@ -8,6 +8,8 @@ public class Produto {
 	private double valorVenda;
 	private double valorCompra;
 	
+	private Categoria categoria;
+	
 	public Produto() {}
 
 	public Produto(int codigo, String nome, int estoque, double valorVenda, double valorCompra) {
@@ -56,6 +58,14 @@ public class Produto {
 
 	public void setValorCompra(double valorCompra) {
 		this.valorCompra = valorCompra;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 }
