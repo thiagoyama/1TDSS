@@ -1,13 +1,11 @@
 package br.com.fiap.banco.resource;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.fiap.banco.dao.ProdutoDao;
 import br.com.fiap.banco.exception.IdNotFoundException;
-import br.com.fiap.banco.factory.ConnectionFactory;
 import br.com.fiap.banco.model.Produto;
+import br.com.fiap.banco.service.ProdutoService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -26,18 +24,17 @@ import jakarta.ws.rs.core.UriInfo;
 @Path("/produto") //http://localhost:8080/07-WebApi/api/produto
 public class ProdutoResource {
 
-	private ProdutoDao dao;
+	private ProdutoService service;
 	
 	public ProdutoResource() throws ClassNotFoundException, SQLException {
-		Connection conn = ConnectionFactory.getConnection();
-		dao = new ProdutoDao(conn);
+		service = new ProdutoService();
 	}
 	
 	//GET http://localhost:8080/07-WebApi/api/produto (Listar todos os produtos)
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Produto> lista() throws ClassNotFoundException, SQLException {
-		return dao.listar();
+		return service.listar();
 	}
 	
 	//GET http://localhost:8080/07-WebApi/api/produto/1 (Pesquisar pelo Id)
@@ -46,7 +43,7 @@ public class ProdutoResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response busca(@PathParam("id") int codigo) throws ClassNotFoundException, SQLException {
 		try {
-			return Response.ok(dao.pesquisar(codigo)).build();
+			return Response.ok(service.pesquisar(codigo)).build();
 		} catch (IdNotFoundException e) {
 			//Retornar 404 caso o produto não exista
 			return Response.status(Status.NOT_FOUND).build();
@@ -57,7 +54,7 @@ public class ProdutoResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Produto produto, @Context UriInfo uri) throws ClassNotFoundException, SQLException {
-		dao.cadastrar(produto);
+		service.cadastrar(produto);
 		//Recupera o path (URL atual(http://localhost:8080/07-WebApi/api/produto/))
 		UriBuilder uriBuilder = uri.getAbsolutePathBuilder();
 		//Adiciona o id do produto que foi criado na URL
@@ -73,7 +70,7 @@ public class ProdutoResource {
 	public Response atualizar(Produto produto, @PathParam("id") int codigo) throws ClassNotFoundException, SQLException {
 		try {
 			produto.setCodigo(codigo);
-			dao.atualizar(produto);
+			service.atualizar(produto);
 			return Response.ok().build();
 		} catch (IdNotFoundException e) {
 			return Response.status(Status.NOT_FOUND).build();
@@ -85,7 +82,7 @@ public class ProdutoResource {
 	@Path("/{id}")
 	public Response remover(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
 		try {
-			dao.remover(id);
+			service.remover(id);
 			return Response.noContent().build();
 		} catch (IdNotFoundException e) {
 			return Response.status(Status.NOT_FOUND).build();
