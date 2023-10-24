@@ -25,9 +25,9 @@ public class ProdutoService {
 	
 	public void cadastrar(Produto produto) throws ClassNotFoundException, SQLException, BadInfoException {
 		//Implementar algumas regras:
-		//Nome é obrigatório e não pode ter mais do que 50 caracteres
+		//Nome ï¿½ obrigatï¿½rio e nï¿½o pode ter mais do que 50 caracteres
 		if (produto.getNome() == null || produto.getNome().length() > 50) {
-			throw new BadInfoException("Nome inválido, não pode ser nulo e no máximo 50 caracteres");
+			throw new BadInfoException("Nome invalido, nao pode ser nulo e no maximo 50 caracteres");
 		}
 		//Estoque, Valor de Compra e Venda tem que ser maiores do que 0
 		

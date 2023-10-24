@@ -3,6 +3,7 @@ package br.com.fiap.banco.resource;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fiap.banco.exception.BadInfoException;
 import br.com.fiap.banco.exception.IdNotFoundException;
 import br.com.fiap.banco.model.Produto;
 import br.com.fiap.banco.service.ProdutoService;
@@ -54,13 +55,20 @@ public class ProdutoResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Produto produto, @Context UriInfo uri) throws ClassNotFoundException, SQLException {
-		service.cadastrar(produto);
-		//Recupera o path (URL atual(http://localhost:8080/07-WebApi/api/produto/))
-		UriBuilder uriBuilder = uri.getAbsolutePathBuilder();
-		//Adiciona o id do produto que foi criado na URL
-		uriBuilder.path(String.valueOf(produto.getCodigo()));
-		//Retornar o status 201 com a URL para acessar o produto criado
-		return Response.created(uriBuilder.build()).build();
+		try {
+			service.cadastrar(produto);
+			//Recupera o path (URL atual(http://localhost:8080/07-WebApi/api/produto/))
+			UriBuilder uriBuilder = uri.getAbsolutePathBuilder();
+			//Adiciona o id do produto que foi criado na URL
+			uriBuilder.path(String.valueOf(produto.getCodigo()));
+			//Retornar o status 201 com a URL para acessar o produto criado
+			return Response.created(uriBuilder.build()).build();
+		} catch (BadInfoException e) {
+			e.printStackTrace();
+			//Retornar o status 400 bad request
+			return Response.status(Status.BAD_REQUEST)
+								.entity(e.getMessage()).build();
+		}
 	}
 	
 	//PUT http://localhost:8080/07-WebApi/api/produto/1 (Atualizar um produto)
