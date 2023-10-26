@@ -15,6 +15,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -29,6 +30,14 @@ public class ProdutoResource {
 	
 	public ProdutoResource() throws ClassNotFoundException, SQLException {
 		service = new ProdutoService();
+	}
+	
+	//GET http://localhost:8080/07-WebApi/api/produto/query?nome=aaa(Pesquisar por nome)
+	@GET
+	@Path("/query")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Produto> pesquisar(@QueryParam("nome") String pesquisa) throws SQLException{
+		return service.pesquisarPorNome(pesquisa);
 	}
 	
 	//GET http://localhost:8080/07-WebApi/api/produto (Listar todos os produtos)
@@ -70,6 +79,7 @@ public class ProdutoResource {
 								.entity(e.getMessage()).build();
 		}
 	}
+
 	
 	//PUT http://localhost:8080/07-WebApi/api/produto/1 (Atualizar um produto)
 	@PUT
@@ -82,6 +92,8 @@ public class ProdutoResource {
 			return Response.ok().build();
 		} catch (IdNotFoundException e) {
 			return Response.status(Status.NOT_FOUND).build();
+		} catch (BadInfoException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 	}
 	

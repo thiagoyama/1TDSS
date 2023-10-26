@@ -24,18 +24,30 @@ public class ProdutoService {
 	}
 	
 	public void cadastrar(Produto produto) throws ClassNotFoundException, SQLException, BadInfoException {
+		validar(produto);
+		produtoDao.cadastrar(produto);
+	}
+
+	private void validar(Produto produto) throws BadInfoException {
 		//Implementar algumas regras:
-		//Nome � obrigat�rio e n�o pode ter mais do que 50 caracteres
+		//Nome obrigatorio e nao pode ter mais do que 50 caracteres
 		if (produto.getNome() == null || produto.getNome().length() > 50) {
 			throw new BadInfoException("Nome invalido, nao pode ser nulo e no maximo 50 caracteres");
 		}
 		//Estoque, Valor de Compra e Venda tem que ser maiores do que 0
-		
-		
-		produtoDao.cadastrar(produto);
+		if (produto.getValorCompra() < 0) {
+			throw new BadInfoException("Valor de compra precisa que ser positivo");
+		}
+		if (produto.getEstoque() < 0) {
+			throw new BadInfoException("Estoque precisa ser positivo");
+		}
+		if (produto.getValorVenda() < 0) {
+			throw new BadInfoException("Valor de venda precisa ser positivo");
+		}
 	}
 	
-	public void atualizar(Produto produto) throws ClassNotFoundException, SQLException, IdNotFoundException {
+	public void atualizar(Produto produto) throws ClassNotFoundException, SQLException, IdNotFoundException, BadInfoException {
+		validar(produto);
 		produtoDao.atualizar(produto);
 	}
 	
@@ -45,6 +57,10 @@ public class ProdutoService {
 	
 	public List<Produto> listar() throws ClassNotFoundException, SQLException{
 		return produtoDao.listar();
+	}
+	
+	public List<Produto> pesquisarPorNome(String nome) throws SQLException{
+		return produtoDao.pesquisarPorNome(nome);
 	}
 	
 	public Produto pesquisar(int codigo) throws ClassNotFoundException, SQLException, IdNotFoundException{

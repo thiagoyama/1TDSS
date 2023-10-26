@@ -11,13 +11,31 @@ import br.com.fiap.banco.exception.IdNotFoundException;
 import br.com.fiap.banco.model.Categoria;
 import br.com.fiap.banco.model.Produto;
 
-//Realiza as a��es de CRUD (Create, Read, Update, Delete) no banco de dados
+//Realiza as acoes de CRUD (Create, Read, Update, Delete) no banco de dados
 public class ProdutoDao {
 	
 	private Connection conn;
 	
 	public ProdutoDao(Connection conn) {
 		this.conn = conn;
+	}
+	
+	public List<Produto> pesquisarPorNome(String nome) throws SQLException{
+		//Criar o objeto com o comando SQL
+		PreparedStatement stm = conn.prepareStatement("select * from t_produto where nm_produto like ?");
+		//Setar o parametro no comando SQL
+		stm.setString(1, "%"+nome+"%");
+		//Executar o comando SQL
+		ResultSet result = stm.executeQuery();
+		//Criar a lista de produtos
+		List<Produto> lista = new ArrayList<>();
+		//Recuperar os produtos encontrados e adicionar na lista
+		while (result.next()) {
+			Produto produto = parse(result);
+			lista.add(produto);
+		}
+		//Retornar a lista
+		return lista;
 	}
 
 	public void cadastrar(Produto produto) throws ClassNotFoundException, SQLException {
