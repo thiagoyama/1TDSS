@@ -17,6 +17,27 @@ public class Usuario {
 	
 	private LocalDate dataNascimento;
 	
+	public Usuario(String nome, String email, String cpf, LocalDate dataNascimento) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+	}
+
+	public Usuario(int id, String nome, String email, String cpf, LocalDateTime dataCadastro,
+			LocalDate dataNascimento) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.cpf = cpf;
+		this.dataCadastro = dataCadastro;
+		this.dataNascimento = dataNascimento;
+	}
+
+	public Usuario() {}
+
 	public int getId() {
 		return id;
 	}
