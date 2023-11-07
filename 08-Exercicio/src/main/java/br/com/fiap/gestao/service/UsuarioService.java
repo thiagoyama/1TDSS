@@ -2,6 +2,7 @@ package br.com.fiap.gestao.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.fiap.gestao.dao.UsuarioDao;
 import br.com.fiap.gestao.exception.BadInfoException;
@@ -16,6 +17,10 @@ public class UsuarioService {
 	public UsuarioService() throws SQLException, ClassNotFoundException {
 		Connection conexao = ConnectionFactory.getConnection();
 		dao = new UsuarioDao(conexao);
+	}
+	
+	public List<Usuario> listar() throws SQLException{
+		return dao.listar();
 	}
 	
 	public void cadastrar(Usuario usuario) throws SQLException, BadInfoException {

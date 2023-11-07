@@ -358,7 +358,7 @@
   <!--                        the arguments to the OS. See the CGI How-To   -->
   <!--                        for more details. The default varies by       -->
   <!--                        platform.                                     -->
-  <!--                        Windows: [[a-zA-Z0-9\Q-_.\\/:\E]+]            -->
+  <!--                        Windows: [[\w\Q-.\\/:\E]+]            -->
   <!--                        Others:  [.*]                                 -->
   <!--                        Note that internally the CGI Servlet treats   -->
   <!--                        [.*] as a special case to improve performance -->
@@ -369,7 +369,7 @@
   <!--                        command line arguments must match else the    -->
   <!--                        request will be rejected. The default matches -->
   <!--                        the allowed values defined by RFC3875.        -->
-  <!--                        [[a-zA-Z0-9\Q%;/?:@&,$-_.!~*'()\E]+]          -->
+  <!--                        [[\w\Q%;/?:@&,$-.!~*'()\E]+]          -->
   <!--                                                                      -->
   <!--   enableCmdLineArguments                                             -->
   <!--                        Are command line parameters generated from    -->
@@ -2119,7 +2119,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>js</extension>
-        <mime-type>application/javascript</mime-type>
+        <mime-type>text/javascript</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>jsf</extension>
