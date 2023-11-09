@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.fiap.gestao.dao.UsuarioDao;
 import br.com.fiap.gestao.exception.BadInfoException;
+import br.com.fiap.gestao.exception.IdNotFoundException;
 import br.com.fiap.gestao.factory.ConnectionFactory;
 import br.com.fiap.gestao.model.Usuario;
 import br.com.fiap.gestao.util.StringUtils;
@@ -19,11 +20,21 @@ public class UsuarioService {
 		dao = new UsuarioDao(conexao);
 	}
 	
-	public List<Usuario> listar() throws SQLException{
-		return dao.listar();
+	public void remover(int id) throws SQLException {
+		dao.remover(id);
+	}
+	
+	public void atualizar(Usuario usuario) throws SQLException, IdNotFoundException, BadInfoException {
+		validar(usuario);
+		dao.atualizar(usuario);
 	}
 	
 	public void cadastrar(Usuario usuario) throws SQLException, BadInfoException {
+		validar(usuario);
+		dao.cadastrar(usuario);
+	}
+
+	private void validar(Usuario usuario) throws BadInfoException {
 		//validacoes
 		if (StringUtils.isNullOrEmptyOrHasMoreThan(usuario.getNome(), 100))
 			throw new BadInfoException("Nome invalido");
@@ -31,7 +42,16 @@ public class UsuarioService {
 			throw new BadInfoException("Email invalido");
 		if (StringUtils.isNullOrEmpty(usuario.getCpf()) || !StringUtils.has(usuario.getCpf(), 11))	
 			throw new BadInfoException("CPF invalido");
-		dao.cadastrar(usuario);
 	}
+	
+	public Usuario pesquisar(int id) throws SQLException, IdNotFoundException {
+		return dao.pesquisar(id);
+	}
+	
+	public List<Usuario> listar() throws SQLException{
+		return dao.listar();
+	}
+	
+	
 	
 }
